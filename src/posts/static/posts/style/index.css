@@ -1,0 +1,20 @@
+
+.foo {
+  padding-top: 30px;
+  text-align: center;
+  margin: 30px;
+  background-color: gray;
+  min-width: 20px;
+  min-height: 40px;
+  border-radius: 5px;
+}
+
+div.foo:hover{
+  background-color: orange;
+}
+
+p::first-letter {
+  text-transform: uppercase;
+  color: red;
+  font-size: 30px;
+}

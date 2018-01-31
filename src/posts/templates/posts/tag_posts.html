@@ -1,0 +1,58 @@
+{% extends 'posts/base_kinetic.html' %}
+
+
+{% block content %}
+        <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+          {% for post in tag %}
+          <div class="post-preview">
+            <a href="{{ post.get_absolute_url }}">
+              <h2 class="post-title">
+                {{post.title}}
+              </h2>
+              <h3 class="post-subtitle">
+                {{post.content|truncatewords:"10"}}
+              </h3>
+            </a>
+            <p class="post-meta">Posted by
+              <a href="#">Gatij</a>
+              on {{post.updated}}</p>
+          </div>
+          <hr>
+          {% endfor %}
+        
+<div class="pagination">
+    <span class="step-links">
+        {% if tag.has_previous %}
+            <a href="?page=1">&laquo; first    </a>
+            <a class="btn btn-primary float-left" href="?page={{ tag.previous_page_number }}">Newer</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ tag.number }} of {{ tag.paginator.num_pages }}.
+        </span>
+
+        {% if tag.has_next %}
+            <a class="btn btn-primary float-right" href="?page={{ tag.next_page_number }}">Older   </a>
+            <a href="?page={{ tag.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+          <!-- Pager -->
+          
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+{% endblock %}

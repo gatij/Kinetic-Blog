@@ -1,0 +1,143 @@
+{% extends 'posts/base_kinetic.html' %}
+
+{% block navbar1 %}
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href='{% url "posts:index" %}'>Kinetic Blog</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <form method="GET" action="">
+                <input type="text" name='q' placeholder="Search Posts" value='{{request.GET.q}}'>
+                <input type="submit" value="search">
+              </form>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href='{% url "posts:index" %}'>Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href='{% url "posts:index" %}'>About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href='{% url "posts:index" %}'>Contact</a>
+            </li>
+            <li class="nav-item">
+              {% endblock %}
+
+
+
+        {% block navbar2 %}
+            </li>
+            <!--li class="nav-item">
+              <a class="nav-link" href='{% url "core:events_detail" %}'>Events</a>
+            </li-->
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <button><a class="nav-link" href='{% url "posts:create" %}'>Create</a></button>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href='{% url "core:profile" %}'>Profile</a>
+            </li>
+            {% endif %}
+            <li class='nav-item'>
+            {% if user.is_authenticated %}
+                        <a class="nav-link" href='{% url "core:logout" %}'>Log Out</a>
+              {% else %}
+                        
+                        <a class="nav-link" href='{% url "core:login" %}'>Log In</a>
+              {% endif %}
+
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+{% block page_header %}
+    <header class="masthead" style="background-image: url('/static/posts/img/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Kinetic Blog</h1>
+              <span class="subheading">A Motive In Motion</span>
+              {% if user.is_authenticated %}
+              <span class="subheading">Welcome {{user.username}}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+{% endblock %}
+
+              
+
+              
+
+{% block content %}
+        <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        
+
+<div class="row">
+  
+          {% for obj in queryset %}
+        <div class="card" >
+            <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{obj.title}}</h5>
+                <p class="card-text">{{obj.content|truncatewords:"10"}}</p>
+                <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read</a>
+            </div>
+        </div>
+
+
+          {% endfor %}
+       
+</div>   
+ 
+        
+<div class="pagination">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?page=1">&laquo; first    </a>
+            <a class="btn btn-primary float-left" href="?page={{ queryset.previous_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">Newer</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <a class="btn btn-primary float-right" href="?page={{ queryset.next_page_number }}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">Older   </a>
+            <a href="?page={{ queryset.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+          <!-- Pager -->
+          
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+{% endblock %}
+

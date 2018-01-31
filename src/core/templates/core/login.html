@@ -1,0 +1,18 @@
+{% extends 'posts/base_kinetic.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+  </form>
+  <br>
+  <p><strong>-- OR --</strong></p>
+  
+  <a href="{% url 'social:begin' 'facebook' %}">Login with facebook</a>
+  <br>
+  <h4>if not register <a href='{% url "core:signup" %}'>click here</a></h4>
+{% endblock %}

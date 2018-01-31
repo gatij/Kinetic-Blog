@@ -1,0 +1,22 @@
+{% extends 'posts/base_kinetic.html' %}
+{% block content %}
+<h1>
+	{{event.name}}
+</h1>
+<h2>fee:{{event.fee}}</h2>
+<h2>size of team:{{event.minteamsize}}--{{event.maxteamsize}}</h2>
+{% if user.is_authenticated %}
+      {% if event in user.profile.events.all %}
+        <h3>you are registered in this event</h3>
+      {% else %}
+        
+  	      <a href="{{event.get_register_url}}"><button>Register</button></a>
+        
+      {% endif %}
+{% else %}
+      <p>To register:</p>
+      <a href="{url 'core:signup'}">Sign Up</a>
+
+{% endif %}
+
+{% endblock %}

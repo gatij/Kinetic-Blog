@@ -1,0 +1,47 @@
+{% extends 'posts/base.html' %}
+
+
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h1>Recent Posts</h1>
+{% for obj in queryset %}
+<!--h1><a href="{% url 'posts:detail' obj.id %}">{{obj.title}}</a></h1-->
+<h1><a href="{{ obj.get_absolute_url }}">{{obj.title}}</a></h1>
+<div class='foo'>
+	<p>{{obj.content}}</p>
+</div>
+<h4>{{obj.updated}}</h4>
+<h4>{{obj.timestamp}}</h4>
+<br>
+<br>
+{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?page=1">&laquo; first </a>
+            <a href="?page={{ queryset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}">next </a>
+            <a href="?page={{ queryset.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+

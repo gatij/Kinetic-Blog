@@ -1,0 +1,26 @@
+{% extends 'posts/base_kinetic.html' %}
+
+
+{% block title %}
+Detail|{{obj.title}}
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<h1><a href="">{{obj.title}}</a></h1>
+<div class='img-fluid'>
+	<img src='{{obj.image.url}}' class='img-responsive'>
+</div>
+
+<div class='foo'>
+	<p>{{obj.content|safe|escape}}</p>
+</div>
+<h4>{{obj.updated}}</h4>
+<h4>{{obj.timestamp}}</h4>
+<br>
+<br>
+{% endblock %}
+
