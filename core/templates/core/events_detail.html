@@ -1,0 +1,11 @@
+{% extends 'posts/base_kinetic.html' %}
+
+{% block content %}
+<h1>List of all events</h1>
+{% for event in events %}
+<a href="{{event.get_absolute_url}}">
+	{{event.name}}
+</a><br>
+{% endfor %}
+
+{% endblock %}

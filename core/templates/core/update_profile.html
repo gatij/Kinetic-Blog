@@ -1,0 +1,16 @@
+
+<h2>{{ user.get_full_name }}</h2>
+{% if not user.last_login %}
+<form method="post">
+  {% csrf_token %}
+  
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+
+{% else %}
+<h1>you are already registered.
+<a href="{% url 'posts:index' %}">click here:</a>
+</h1>
+
+{% endif %}

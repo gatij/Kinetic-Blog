@@ -1,0 +1,27 @@
+
+{% extends 'posts/base_kinetic.html' %}
+
+{% block content %}
+    <h2>{{ user.get_full_name }}</h2>
+<ul>
+  <li>Username: {{ user.username }}</li>
+  <li>Location: {{ user.profile.location }}</li>
+  <li>Birth Date: {{ user.profile.birth_date }}</li>
+  <li>Phone: {{ user.profile.phone_number}}</li>
+  <li>Bio: {{user.profile.bio}}</li>
+  <li>Institute:{{user.profile.institute}}</li>
+  <li>Registered Teams:
+    {% for team in user.profile.teams.all %}
+    {{team.name}} in {{team.event}}|
+    {% endfor %}
+  </li>
+  <li>
+  	registered events:
+  	{% for event in user.profile.events.all %}
+    {{event.name}}|
+    {% endfor %}
+  </li>
+  <li>Total amount:{{user.profile.amount}}</li>
+  <li>Paid Status:{% if user.profile.paid_status %}Paid {% else %}Not paid {% endif %}</li>
+</ul>
+    {% endblock %}
