@@ -9,12 +9,24 @@ Create
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Create Your Post</h1>
-
+<div class="row">
+	<div class="col-sm-6">
+	<h1>Preview</h1>
+	<div class="content-preview">
+		<h3 id="preview-title"></h3>
+		<p id="preview-content"></p>
+	</div>
+</div>
+<div class="col-sm-6">
+	<h1>Create Your Post</h1>
 	<form method="POST" action="" enctype='multipart/form-data'>
 	{% csrf_token %}
 	{{form.as_p}}
     <input type="submit" class="save btn btn-default" name="Create">
     </form>
+</div>
+</div>
+	
+	
 {% endif %}
 {% endblock %}

@@ -103,7 +103,9 @@
             <img class="card-img-top" src="{{obj.image.url}}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{obj.title}}</h5>
-                <p class="card-text">{{obj.content|truncatewords:"10"}}</p>
+                <p class="card-text content-markdown">
+                  {{obj.content|truncatewords:"5"}}
+                </p>
                 <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read</a>
             </div>
         </div>

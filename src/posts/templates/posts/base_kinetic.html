@@ -121,18 +121,20 @@
     
     {% endblock %}
     <script type="text/javascript">
-      console.log(5+5);
       $(document).ready(function(){
         $(".content-markdown").each(function(){
-          console.log(5+2);
           var content=$(this).text()
-          console.log(5+3);
           console.log(content);
-          
           console.log(marked(content));
           $(this).html(marked(content));
+        }) 
+
+        $(".content-markdown img").each(function(){
+          $(this).addClass("img-responsive");  
         }
         )
+        var titleItem = $("#id_title");
+        $("#preview-title").text(titleItem.val())
         
       }
       )
